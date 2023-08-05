@@ -16,3 +16,5 @@ RUN mkdir -p /root/quartus && \
 ADD files/ /
 # install quartus lite
 RUN /root/setup 22.1std && rm -rf /root/quartus && rm -rf /root/setup*
+# patch cpu checks to avoid crapping out on Rosetta on M1/M2 Macs
+RUN sed -i "s|grep sse /proc/cpuinfo|true|g" /opt/intelFPGA_lite/22.1std/quartus/adm/qenv.sh
